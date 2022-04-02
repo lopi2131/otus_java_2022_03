@@ -1,0 +1,8 @@
+.idea
+*/target/**
+*/allure-results/**
+*.iml
+*/build/**
+*/out/**
+.gradle
+cucumber-report.json
