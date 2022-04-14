@@ -7,26 +7,24 @@ import java.util.TreeMap;
 
 public class CustomerService {
 
-    TreeMap<Customer, String> customerService = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
+    private final TreeMap<Customer, String> customerService = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
 
     public Map.Entry<Customer, String> getSmallest() {
-        TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
-        Customer customer = customerService.lastEntry().getKey();
-        String data = customerService.lastEntry().getValue();
-        copy.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
-        return copy.firstEntry();
+        return copy(customerService.firstEntry().getKey(), customerService.firstEntry().getValue());
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
-        TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
         try {
-            Customer customerCopy = customerService.lowerEntry(customer).getKey();
-            String data = customerService.lowerEntry(customer).getValue();
-            copy.put(new Customer(customerCopy.getId(), customerCopy.getName(), customerCopy.getScores()), data);
-            return copy.firstEntry();
+            return copy(customerService.higherEntry(customer).getKey(), customerService.higherEntry(customer).getValue());
         } catch (NullPointerException e) {
             return null;
         }
+    }
+
+    public Map.Entry<Customer, String> copy(Customer customer, String data) {
+        TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
+        copy.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
+        return copy.firstEntry();
     }
 
     public void add(Customer customer, String data) {
