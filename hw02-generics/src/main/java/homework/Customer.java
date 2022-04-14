@@ -7,8 +7,6 @@ public class Customer {
     private String name;
     private long scores;
 
-    //todo: 1. в этом классе надо исправить ошибки
-
     public Customer(long id, String name, long scores) {
         this.id = id;
         this.name = name;
