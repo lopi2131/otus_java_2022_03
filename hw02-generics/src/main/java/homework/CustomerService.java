@@ -9,25 +9,20 @@ public class CustomerService {
 
     TreeMap<Customer, String> customerService = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
 
-    //todo: 3. надо реализовать методы этого класса
-    //важно подобрать подходящую Map-у, посмотрите на редко используемые методы, они тут полезны
-
     public Map.Entry<Customer, String> getSmallest() {
         TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
-        copy.put(new Customer(customerService.lastEntry().getKey().getId(),
-                        customerService.lastEntry().getKey().getName(),
-                        customerService.lastEntry().getKey().getScores()),
-                customerService.lastEntry().getValue());
+        Customer customer = customerService.lastEntry().getKey();
+        String data = customerService.lastEntry().getValue();
+        copy.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
         return copy.firstEntry();
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
         TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
         try {
-            copy.put(new Customer(customerService.lowerEntry(customer).getKey().getId(),
-                            customerService.lowerEntry(customer).getKey().getName(),
-                            customerService.lowerEntry(customer).getKey().getScores()),
-                    customerService.lowerEntry(customer).getValue());
+            Customer customerCopy = customerService.lowerEntry(customer).getKey();
+            String data = customerService.lowerEntry(customer).getValue();
+            copy.put(new Customer(customerCopy.getId(), customerCopy.getName(), customerCopy.getScores()), data);
             return copy.firstEntry();
         } catch (NullPointerException e) {
             return null;
