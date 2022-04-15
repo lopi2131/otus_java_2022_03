@@ -1,6 +1,5 @@
 package homework;
 
-
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,9 +21,7 @@ public class CustomerService {
     }
 
     public Map.Entry<Customer, String> copy(Customer customer, String data) {
-        TreeMap<Customer, String> copy = new TreeMap<>(Comparator.comparingLong(Customer::getScores).reversed());
-        copy.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
-        return copy.firstEntry();
+        return Map.entry(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
     }
 
     public void add(Customer customer, String data) {
