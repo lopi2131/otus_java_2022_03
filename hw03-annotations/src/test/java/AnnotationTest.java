@@ -2,30 +2,32 @@ import ru.otus.annotations.After;
 import ru.otus.annotations.Before;
 import ru.otus.annotations.Test;
 
+import static org.assertj.core.api.Fail.fail;
+
 public class AnnotationTest {
 
     @Test
-    public static void test1() {
+    void test1() {
         System.out.println("Test1");
     }
 
     @Test
-    public static void test2() {
+    void test2() {
         System.out.println("Test2");
     }
 
     @Test
-    public static void test3() {
-        System.out.println("Test3");
+    void test3() {
+        fail("Тест не прошел!");
     }
 
     @After
-    public static void after() {
+    void after() {
         System.out.println("After");
     }
 
     @Before
-    public static void before() {
+    void before() {
         System.out.println("Before");
     }
 }

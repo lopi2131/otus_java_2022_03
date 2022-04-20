@@ -1,6 +1,9 @@
 package ru.otus.reflection;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class ReflectionHelper {
@@ -27,9 +30,9 @@ public class ReflectionHelper {
         }
     }
 
-    public static Object callMethod(Object object, String name, Object... args) {
+    public static Object callMethod(Object object, Method privateMethod, Object... args) {
         try {
-            var method = object.getClass().getDeclaredMethod(name, toClasses(args));
+            var method = object.getClass().getDeclaredMethod(privateMethod.getName(), toClasses(args));
             method.setAccessible(true);
             return method.invoke(object, args);
         } catch (Exception e) {
@@ -52,5 +55,11 @@ public class ReflectionHelper {
 
     public static Class<?>[] toClasses(Object[] args) {
         return Arrays.stream(args).map(Object::getClass).toArray(Class<?>[]::new);
+    }
+
+    public static List<Method> getAnnotationMethods(Class<?> clazz, Class<? extends Annotation> annotation) {
+        return Arrays.stream(clazz.getDeclaredMethods())
+                .filter((Method method) -> method.isAnnotationPresent(annotation))
+                .toList();
     }
 }
