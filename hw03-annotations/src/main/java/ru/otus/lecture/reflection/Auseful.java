@@ -1,4 +1,6 @@
-package ru.otus.reflection;
+package ru.otus.lecture.reflection;
+
+import ru.otus.lecture.annotation.SimpleAnnotation;
 
 public class Auseful {
     public static void main(String[] args) throws Exception {

@@ -1,4 +1,4 @@
-package ru.otus.annotations;
+package ru.otus.lecture.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

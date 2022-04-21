@@ -1,11 +1,11 @@
-package ru.otus.annotations;
+package ru.otus.lecture.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface After {
+@Target({ElementType.TYPE_USE})
+public @interface Email {
 }

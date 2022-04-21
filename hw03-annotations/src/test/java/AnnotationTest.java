@@ -1,6 +1,6 @@
-import ru.otus.annotations.After;
-import ru.otus.annotations.Before;
-import ru.otus.annotations.Test;
+import ru.otus.homework.annotations.After;
+import ru.otus.homework.annotations.Before;
+import ru.otus.homework.annotations.Test;
 
 import static org.assertj.core.api.Fail.fail;
 

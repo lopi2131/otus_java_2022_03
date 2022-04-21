@@ -1,9 +1,9 @@
-package ru.otus.annotations.usage;
+package ru.otus.lecture.annotation.usage;
 
 
-import ru.otus.annotations.Email;
-import ru.otus.annotations.Immutable;
-import ru.otus.annotations.ImmutableEmail;
+import ru.otus.lecture.annotation.Email;
+import ru.otus.lecture.annotation.Immutable;
+import ru.otus.lecture.annotation.ImmutableEmail;
 
 public class EmailDemo {
     public static void main(String[] args) {

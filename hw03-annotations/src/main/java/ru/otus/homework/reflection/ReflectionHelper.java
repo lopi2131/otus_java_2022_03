@@ -1,4 +1,4 @@
-package ru.otus.reflection;
+package ru.otus.homework.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -30,9 +30,8 @@ public class ReflectionHelper {
         }
     }
 
-    public static Object callMethod(Object object, Method privateMethod, Object... args) {
+    public static Object callMethod(Object object, Method method, Object... args) {
         try {
-            var method = object.getClass().getDeclaredMethod(privateMethod.getName(), toClasses(args));
             method.setAccessible(true);
             return method.invoke(object, args);
         } catch (Exception e) {

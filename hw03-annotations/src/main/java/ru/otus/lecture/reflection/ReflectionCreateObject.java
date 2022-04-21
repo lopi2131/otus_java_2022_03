@@ -1,4 +1,4 @@
-package ru.otus.reflection;
+package ru.otus.lecture.reflection;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;

@@ -1,9 +1,9 @@
-package ru.otus.annotations.usage;
+package ru.otus.lecture.annotation.usage;
 
-import ru.otus.annotations.Email;
-import ru.otus.annotations.Immutable;
-import ru.otus.annotations.NonEmpty;
-import ru.otus.annotations.Unfinished;
+import ru.otus.lecture.annotation.Email;
+import ru.otus.lecture.annotation.Immutable;
+import ru.otus.lecture.annotation.NonEmpty;
+import ru.otus.lecture.annotation.Unfinished;
 
 import java.util.ArrayList;
 import java.util.List;
