@@ -29,6 +29,10 @@ allprojects {
             dependency "org.junit.jupiter:junit-jupiter:${Versions.junitJupiter}"
             dependency "org.mockito:mockito-junit-jupiter:${Versions.mockitoJunit}"
             dependency "org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}"
+            dependency "org.openjdk.jmh:jmh-core:${Versions.jmh}"
+            dependency "org.openjdk.jmh:jmh-generator-annprocess:${Versions.jmh}"
+            dependency "org.ow2.asm:asm-commons:${Versions.asm}"
+            dependency("org.glassfish:jakarta.json:${Versions.glassfishJson}")
         }
     }
 }
