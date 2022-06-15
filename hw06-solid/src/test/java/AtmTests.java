@@ -56,7 +56,9 @@ public class AtmTests {
         deposit.execute(atm, Banknote.N100);
         var banknotes = withdraw.execute(atm, 300);
         assertThat(banknotes).isNotNull();
-        assertThat(banknotes.stream().map(Banknote::getValue).collect(Collectors.toList()))
+        assertThat(banknotes.stream()
+                .map(Banknote::getValue)
+                .collect(Collectors.toList()))
                 .asList()
                 .containsExactlyInAnyOrder(200, 100);
         assertThat(balance.execute(atm)).isEqualTo(400);
