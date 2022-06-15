@@ -1,10 +1,29 @@
 package atm.command;
 
-import atm.ATM;
+import atm.Atm;
+import atm.Cell;
+import atm.cash.Banknote;
 
-public class InfoCommand implements Command{
+import java.util.List;
+
+public class InfoCommand implements Command {
     @Override
-    public String execute(ATM atm) {
+    public int execute(Atm atm) {
+        var sum = 0;
+        for (Cell cell : atm.getCellList()) {
+            sum = sum + (cell.getCount() * cell.getBanknote().getValue());
+        }
+        System.out.println("Balance: " + sum);
+        return sum;
+    }
+
+    @Override
+    public boolean execute(Atm atm, Banknote banknote) {
+        return false;
+    }
+
+    @Override
+    public List<Banknote> execute(Atm atm, int amount) {
         return null;
     }
 }

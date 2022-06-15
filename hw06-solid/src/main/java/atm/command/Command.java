@@ -1,7 +1,14 @@
 package atm.command;
 
-import atm.ATM;
+import atm.Atm;
+import atm.cash.Banknote;
+
+import java.util.List;
 
 public interface Command {
-    String execute(ATM atm);
+    int execute(Atm atm);
+
+    boolean execute(Atm atm, Banknote banknote);
+
+    List<Banknote> execute(Atm atm, int sum);
 }

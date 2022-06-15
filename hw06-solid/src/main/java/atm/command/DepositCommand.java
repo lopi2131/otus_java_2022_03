@@ -1,15 +1,30 @@
 package atm.command;
 
-import atm.ATM;
+import atm.Atm;
+import atm.Cell;
+import atm.cash.Banknote;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class DepositCommand implements Command{
+public class DepositCommand implements Command {
+
     @Override
-    public String execute(ATM atm) {
-        Map<String, Integer> currencyCell = new HashMap<>();
-        currencyCell.put("USD",100);
+    public int execute(Atm atm) {
+        return 0;
+    }
+
+    @Override
+    public boolean execute(Atm atm, Banknote banknote) {
+        for (Cell cell : atm.getCellList()) {
+            if (banknote.getValue() == cell.getBanknote().getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<Banknote> execute(Atm atm, int amount) {
         return null;
     }
 }

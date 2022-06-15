@@ -28,6 +28,7 @@ allprojects {
             dependency "org.assertj:assertj-core:${Versions.assertJ}"
             dependency "org.junit.jupiter:junit-jupiter:${Versions.junitJupiter}"
             dependency "org.mockito:mockito-junit-jupiter:${Versions.mockitoJunit}"
+            dependency "org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}"
         }
     }
 }
