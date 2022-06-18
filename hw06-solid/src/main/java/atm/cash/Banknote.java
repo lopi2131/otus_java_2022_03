@@ -6,7 +6,8 @@ public enum Banknote {
     N500(500),
     N1000(1000),
     N2000(2000),
-    N5000(5000);
+    N5000(5000),
+    WRONG(123);
 
     private int value;
 

@@ -3,8 +3,8 @@ package atm;
 import atm.cash.Banknote;
 
 public class Cell {
-    Banknote banknote;
-    int count;
+    private final Banknote banknote;
+    private int count;
 
     public Cell(Banknote banknote, int count) {
         this.banknote = banknote;
@@ -17,5 +17,17 @@ public class Cell {
 
     public int getCount() {
         return count;
+    }
+
+    public void setCount(int count) {
+        this.count += count;
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "banknote=" + banknote +
+                ", count=" + count +
+                '}';
     }
 }

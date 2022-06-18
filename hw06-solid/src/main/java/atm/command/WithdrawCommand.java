@@ -16,7 +16,7 @@ public class WithdrawCommand implements Command {
     }
 
     @Override
-    public boolean execute(Atm atm, Banknote banknote) {
+    public boolean execute(Atm atm, Banknote banknote, int count) {
         return false;
     }
 

@@ -11,14 +11,14 @@ public class InfoCommand implements Command {
     public int execute(Atm atm) {
         var sum = 0;
         for (Cell cell : atm.getCellList()) {
-            sum = sum + (cell.getCount() * cell.getBanknote().getValue());
+            sum += (cell.getCount() * cell.getBanknote().getValue());
         }
         System.out.println("Balance: " + sum);
         return sum;
     }
 
     @Override
-    public boolean execute(Atm atm, Banknote banknote) {
+    public boolean execute(Atm atm, Banknote banknote, int count) {
         return false;
     }
 

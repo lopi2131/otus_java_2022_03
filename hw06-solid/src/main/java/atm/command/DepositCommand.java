@@ -14,13 +14,27 @@ public class DepositCommand implements Command {
     }
 
     @Override
-    public boolean execute(Atm atm, Banknote banknote) {
-        for (Cell cell : atm.getCellList()) {
-            if (banknote.getValue() == cell.getBanknote().getValue()) {
-                return true;
+    public boolean execute(Atm atm, Banknote banknote, int count) {
+        int i;
+        boolean result = false;
+        switch (banknote.getValue()) {
+            case 100, 200, 500, 1000, 2000, 5000 -> {
+                for (i = 0; i < atm.getCellList().size(); i++) {
+                    if (atm.getCellList().get(i).getBanknote().getValue() == banknote.getValue()) {
+                        atm.getCellList().get(i).setCount(count);
+                        result = true;
+                    }
+                }
+                if (!result) {
+                    atm.getCellList().add(new Cell(banknote, count));
+                    result = true;
+                }
+            }
+            default -> {
+                System.out.println("Операция не может быть выполнена");
             }
         }
-        return false;
+        return result;
     }
 
     @Override
