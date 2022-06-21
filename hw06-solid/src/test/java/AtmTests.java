@@ -72,6 +72,6 @@ public class AtmTests {
                 .collect(Collectors.toList()))
                 .asList()
                 .containsExactlyInAnyOrder(200, 100);
-        assertThat(balance.execute(atm)).isEqualTo(500);
+        assertThat(balance.execute(atm)).isEqualTo(0);
     }
 }
