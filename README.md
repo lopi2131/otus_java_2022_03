@@ -8,3 +8,4 @@
 7. Модуль hw07-structuralPatterns - Обработчик сообщений
 8. Модуль hw08-io - Обработчик json-ов
 9. Модуль hw09-jdbc - Самодельный ORM
+10. Модуль hw10-hibernate - Использование Hibernate
