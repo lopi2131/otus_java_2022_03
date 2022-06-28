@@ -12,7 +12,7 @@ create table address
 );
 create table phone
 (
-    id   bigserial primary key,
+    id   bigserial not null primary key,
     phone_number varchar(50),
     client_id bigint
 );
