@@ -33,6 +33,12 @@ allprojects {
             dependency "org.openjdk.jmh:jmh-generator-annprocess:${Versions.jmh}"
             dependency "org.ow2.asm:asm-commons:${Versions.asm}"
             dependency("org.glassfish:jakarta.json:${Versions.glassfishJson}")
+            dependency("org.testcontainers:junit-jupiter:${Versions.testContainers}")
+            dependency("org.testcontainers:postgresql:${Versions.testContainers}")
+            dependency ("ch.qos.logback:logback-classic:${Versions.logback}")
+            dependency ("org.flywaydb:flyway-core:${Versions.flyway}")
+            dependency ("org.postgresql:postgresql:${Versions.postgresql}")
+            dependency ("com.zaxxer:HikariCP:${Versions.hikariCP}")
         }
     }
 }
