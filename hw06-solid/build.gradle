@@ -10,6 +10,7 @@ dependencies {
     testImplementation ('org.assertj:assertj-core')
     testImplementation ('org.mockito:mockito-core')
     testImplementation ('org.mockito:mockito-junit-jupiter')
+    implementation 'org.projectlombok:lombok:1.18.24'
 }
 
 test {

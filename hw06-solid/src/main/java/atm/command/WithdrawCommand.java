@@ -1,6 +1,5 @@
 package atm.command;
 
-import atm.Atm;
 import atm.Cell;
 import atm.cash.Banknote;
 
@@ -9,24 +8,24 @@ import java.util.stream.Collectors;
 
 public class WithdrawCommand implements Command {
     @Override
-    public int execute(Atm atm) {
+    public int execute(List<Cell> cellList) {
         return 0;
     }
 
     @Override
-    public boolean execute(Atm atm, Banknote banknote, int count) {
+    public boolean execute(List<Cell> cellList, Banknote banknote, int count) {
         return false;
     }
 
     @Override
-    public List<Banknote> execute(Atm atm, int sum) {
+    public List<Banknote> execute(List<Cell> cellList, int sum) {
         List<Cell> elements = new LinkedList<>();
-        if (new InfoCommand().execute(atm) < sum) {
+        if (new InfoCommand().execute(cellList) < sum) {
             System.out.println("Операция невозможна, недостаточно средств!");
             return null;
         }
         Map<Banknote, Integer> banknote = new HashMap<>();
-        var cells = atm.getCellList().stream()
+        var cells = cellList.stream()
                 .sorted((e1, e2) -> e2.getBanknote().getValue() - e1.getBanknote().getValue())
                 .collect(Collectors.toList());
         for (var cell : cells) {
@@ -43,7 +42,7 @@ public class WithdrawCommand implements Command {
             return null;
         } else {
             for (var cell : elements) {
-                atm.getCellList().remove(cell);
+                cellList.remove(cell);
             }
             return new ArrayList<>(banknote.keySet());
         }

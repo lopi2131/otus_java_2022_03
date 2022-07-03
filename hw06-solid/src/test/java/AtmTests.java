@@ -30,48 +30,39 @@ public class AtmTests {
     @Test
     @DisplayName("выдавать сумму остатка денежных средств")
     void testBalance() {
-        var balance = new InfoCommand();
-        assertThat(balance.execute(atm)).isEqualTo(400);
+        assertThat(atm.info()).isEqualTo(400);
     }
 
     @Test
     @DisplayName("отказывать в приеме купюры неподдерживаемого номинала")
     void testWrongNominal() {
-        var wrongBanknote = Banknote.WRONG;
-        var deposit = new DepositCommand();
-        assertThat(deposit.execute(atm, wrongBanknote, 1)).isFalse();
+        assertThat(atm.deposit(Banknote.WRONG, 1)).isFalse();
     }
 
     @Test
     @DisplayName("отказывать в выдаче средств, если их недостаточно")
     void testWithdrawNotMoney() {
-        var withdraw = new WithdrawCommand();
-        assertThat(withdraw.execute(atm, 2000)).isNull();
+        assertThat(atm.withdraw(2000)).isNull();
     }
 
     @Test
     @DisplayName("отказывать в выдаче средств, если нет подходящих купюр")
     void testWithdrawBanknoteMissing() {
-        var deposit = new DepositCommand();
-        var withdraw = new WithdrawCommand();
-        assertThat(deposit.execute(atm, Banknote.N1000, 1)).isTrue();
-        assertThat(withdraw.execute(atm, 500)).isNull();
+        assertThat(atm.deposit(Banknote.N1000, 1)).isTrue();
+        assertThat(atm.withdraw(500)).isNull();
     }
 
     @Test
     @DisplayName("успешно выдавать сумму минимальным количеством купюр")
     void testWithdraw() {
-        var deposit = new DepositCommand();
-        var withdraw = new WithdrawCommand();
-        var balance = new InfoCommand();
-        deposit.execute(atm, Banknote.N100, 1);
-        var banknotes = withdraw.execute(atm, 300);
+        atm.deposit(Banknote.N100, 1);
+        var banknotes = atm.withdraw(300);
         assertThat(banknotes).isNotNull();
         assertThat(banknotes.stream()
                 .map(Banknote::getValue)
                 .collect(Collectors.toList()))
                 .asList()
                 .containsExactlyInAnyOrder(200, 100);
-        assertThat(balance.execute(atm)).isEqualTo(0);
+        assertThat(atm.info()).isEqualTo(0);
     }
 }

@@ -1,6 +1,5 @@
 package atm.command;
 
-import atm.Atm;
 import atm.Cell;
 import atm.cash.Banknote;
 
@@ -8,9 +7,9 @@ import java.util.List;
 
 public class InfoCommand implements Command {
     @Override
-    public int execute(Atm atm) {
+    public int execute(List<Cell> cellList) {
         var sum = 0;
-        for (Cell cell : atm.getCellList()) {
+        for (Cell cell : cellList) {
             sum += (cell.getCount() * cell.getBanknote().getValue());
         }
         System.out.println("Balance: " + sum);
@@ -18,12 +17,12 @@ public class InfoCommand implements Command {
     }
 
     @Override
-    public boolean execute(Atm atm, Banknote banknote, int count) {
+    public boolean execute(List<Cell> cellList, Banknote banknote, int count) {
         return false;
     }
 
     @Override
-    public List<Banknote> execute(Atm atm, int amount) {
+    public List<Banknote> execute(List<Cell> cellList, int amount) {
         return null;
     }
 }

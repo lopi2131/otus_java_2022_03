@@ -1,15 +1,17 @@
 package atm.command;
 
-import atm.Atm;
+import atm.Cell;
 import atm.cash.Banknote;
+import lombok.SneakyThrows;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface Command {
-    int execute(Atm atm);
+    int execute(List<Cell> cellList);
 
-    boolean execute(Atm atm, Banknote banknote, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+    @SneakyThrows
+    boolean execute(List<Cell> cellList, Banknote banknote, int count);
 
-    List<Banknote> execute(Atm atm, int sum);
+    List<Banknote> execute(List<Cell> cellList, int sum);
 }
