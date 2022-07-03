@@ -9,6 +9,7 @@ import java.util.WeakHashMap;
 public class MyCache<K, V> implements HwCache<K, V> {
     private final Map<K, V> cache = new WeakHashMap<>();
     private final List<HwListener<K, V>> listeners = new ArrayList<>();
+
 //Надо реализовать эти методы
 
     @Override
