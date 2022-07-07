@@ -4,25 +4,18 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
-
 dependencies {
-    testImplementation ('org.junit.jupiter:junit-jupiter-api:5.8.2')
+    testImplementation ('org.junit.jupiter:junit-jupiter-api')
     testImplementation ('org.junit.jupiter:junit-jupiter-engine')
-    testImplementation ('org.junit.jupiter:junit-jupiter-params')
     testImplementation ('org.assertj:assertj-core')
     testImplementation ('org.mockito:mockito-core')
     testImplementation ('org.mockito:mockito-junit-jupiter')
+    implementation 'org.projectlombok:lombok:1.18.24'
 }
 
 test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
-    }
-}
-
-tasks.withType(JavaCompile) {
-    options.with {
-        encoding = 'UTF-8'
     }
 }
