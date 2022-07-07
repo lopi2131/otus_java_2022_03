@@ -9,7 +9,7 @@ import atm.command.WithdrawCommand;
 import java.util.List;
 
 public class Atm {
-    List<Cell> cellList;
+    private List<Cell> cellList;
     private final Command depositCommand;
     private final Command infoCommand;
     private final Command withdrawCommand;

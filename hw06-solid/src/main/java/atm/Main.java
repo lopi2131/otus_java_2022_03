@@ -1,9 +1,6 @@
 package atm;
 
 import atm.cash.Banknote;
-import atm.command.DepositCommand;
-import atm.command.InfoCommand;
-import atm.command.WithdrawCommand;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +14,7 @@ public class Main {
         var atm = new Atm(cells);
 
         atm.deposit(Banknote.N1000, 1);//balance 1900
+        atm.deposit(Banknote.N1000, -1);//balance 1900
         atm.withdraw(500);
         atm.info();//balance 1400
         atm.deposit(Banknote.N5000, 1);

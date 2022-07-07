@@ -20,7 +20,9 @@ public class Cell {
     }
 
     public void setCount(int count) {
-        this.count += count;
+        if (count > 0) {
+            this.count += count;
+        } else System.out.println("Количество купюр должно быть > 0");
     }
 
     @Override
