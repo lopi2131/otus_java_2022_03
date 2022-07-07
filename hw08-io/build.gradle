@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+dependencies {
+    implementation ('com.google.guava:guava')
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'javax.json:javax.json-api:1.1.4'
+    implementation ('org.glassfish:jakarta.json')
+    implementation 'com.google.protobuf:protobuf-java-util:3.21.1'
+
+    testImplementation ('org.junit.jupiter:junit-jupiter-api')
+    testImplementation ('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation ('org.junit.jupiter:junit-jupiter-params')
+    testImplementation ('org.assertj:assertj-core')
+    testImplementation ('org.mockito:mockito-core')
+    testImplementation ('org.mockito:mockito-junit-jupiter')
+    implementation 'org.projectlombok:lombok:1.18.24'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.with {
+        encoding = 'UTF-8'
+    }
+}
