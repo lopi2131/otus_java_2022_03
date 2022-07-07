@@ -9,3 +9,4 @@
 8. Модуль hw08-io - Обработчик json-ов
 9. Модуль hw09-jdbc - Самодельный ORM
 10. Модуль hw10-hibernate - Использование Hibernate
+11. Модуль hw11-cache - Свой cache engine
