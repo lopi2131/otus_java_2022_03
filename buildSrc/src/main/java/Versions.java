@@ -11,4 +11,5 @@ public interface Versions {
     String flyway = "8.5.12";
     String postgresql = "42.4.0";
     String hikariCP = "5.0.1";
+    String reflections = "0.10.2";
 }
