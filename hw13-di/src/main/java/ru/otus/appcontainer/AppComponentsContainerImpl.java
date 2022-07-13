@@ -3,10 +3,10 @@ package ru.otus.appcontainer;
 import ru.otus.appcontainer.api.AppComponent;
 import ru.otus.appcontainer.api.AppComponentsContainer;
 import ru.otus.appcontainer.api.AppComponentsContainerConfig;
+import ru.otus.exception.ContextCreationException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.*;
 
 public class AppComponentsContainerImpl implements AppComponentsContainer {
@@ -28,8 +28,7 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
             for (Method method : methods) {
                 var annotation = method.getAnnotation(AppComponent.class);
                 checkComponent(annotation.name());
-                var parameters = method.getParameters();
-                var args = initParameters(parameters);
+                var args = initParameters(method);
                 var resultInvokeMethod = method.invoke(configClazz, args);
                 appComponents.add(resultInvokeMethod);
                 appComponentsByName.put(annotation.name(), resultInvokeMethod);
@@ -66,7 +65,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
     private <C> void checkComponent(C component) {
         if (component == null) {
-            System.out.println("Component not found");
+            throw new ContextCreationException("Component not found");
+        } else if (appComponentsByName.containsKey(component)) {
+            throw new ContextCreationException(String.format("Component with id: %s already exists", component));
         }
     }
 
@@ -74,26 +75,22 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         if (components.size() > 1) {
             throw new IllegalArgumentException("Duplicate components");
         } else if (components.isEmpty()) {
-            System.out.println("Component not found");
+            throw new ContextCreationException("Component not found");
         }
-
     }
 
     private List<Method> getOrderedMethods(Class<?> configClass) {
         return Arrays.stream(configClass.getDeclaredMethods()).sorted(Comparator.comparing(method -> method.getAnnotation(AppComponent.class).order())).toList();
     }
 
-    private Object[] initParameters(Parameter[] parameters) throws ClassNotFoundException {
-        try {
-            var args = new Object[parameters.length];
-            for (int j = 0; j < parameters.length; j++) {
-                var componentClass = Class.forName(parameters[j].getAnnotatedType().toString());
-                var parameter = getAppComponent(componentClass);
-                args[j] = parameter;
-            }
-            return args;
-        } catch (ClassNotFoundException e) {
-            throw new ClassNotFoundException("Initialization parameter not found", e);
+    private Object[] initParameters(Method method) throws ClassNotFoundException {
+        var i = 0;
+        var args = new Object[method.getParameterTypes().length];
+        for (Class component : method.getParameterTypes()) {
+            var parameter = getAppComponent(component);
+            args[i] = parameter;
+            i++;
         }
+        return args;
     }
 }
