@@ -24,17 +24,21 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
             var methods = getOrderedMethods(configClass);
             var constructor = configClass.getDeclaredConstructor();
             var configClazz = constructor.newInstance();
+            var resultInvokeMethod = new Object();
 
             for (Method method : methods) {
                 var annotation = method.getAnnotation(AppComponent.class);
                 checkComponent(annotation.name());
-                var args = initParameters(method);
-                var resultInvokeMethod = method.invoke(configClazz, args);
+                if (method.getParameterCount() == 0) {
+                    resultInvokeMethod = method.invoke(configClazz);
+                } else {
+                    resultInvokeMethod = method.invoke(configClazz, initParameters(method));
+                }
                 appComponents.add(resultInvokeMethod);
                 appComponentsByName.put(annotation.name(), resultInvokeMethod);
             }
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
-            System.out.println("Context cannot be configured");
+            throw new ContextCreationException("Context cannot be configured");
         }
     }
 
@@ -84,12 +88,9 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     }
 
     private Object[] initParameters(Method method) throws ClassNotFoundException {
-        var i = 0;
         var args = new Object[method.getParameterTypes().length];
-        for (Class component : method.getParameterTypes()) {
-            var parameter = getAppComponent(component);
-            args[i] = parameter;
-            i++;
+        for (int i = 0; i < method.getParameterTypes().length; i++) {
+            args[i] = getAppComponent(List.of(method.getParameterTypes()).get(i));
         }
         return args;
     }
