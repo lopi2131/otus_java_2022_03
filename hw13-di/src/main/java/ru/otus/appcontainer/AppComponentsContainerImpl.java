@@ -30,9 +30,11 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                 var annotation = method.getAnnotation(AppComponent.class);
                 checkComponent(annotation.name());
                 if (method.getParameterCount() == 0) {
-                    resultInvokeMethod = method.invoke(configClazz);
+                    resultInvokeMethod = Optional.ofNullable(method.invoke(configClazz))
+                            .orElseThrow(() -> new ContextCreationException("Context cannot be configured"));
                 } else {
-                    resultInvokeMethod = method.invoke(configClazz, initParameters(method));
+                    resultInvokeMethod = Optional.ofNullable(method.invoke(configClazz, initParameters(method)))
+                            .orElseThrow(() -> new ContextCreationException("Context cannot be configured"));
                 }
                 appComponents.add(resultInvokeMethod);
                 appComponentsByName.put(annotation.name(), resultInvokeMethod);
