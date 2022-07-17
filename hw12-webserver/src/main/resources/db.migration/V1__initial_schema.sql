@@ -1,16 +1,16 @@
 
-create table clients
+create table client
 (
     id   bigserial not null primary key,
     client_name varchar(50),
     address_id bigint
 );
-create table addresses
+create table address
 (
     id   bigserial not null primary key,
     street varchar(50)
 );
-create table phones
+create table phone
 (
     id   bigserial primary key,
     phone_number varchar(50),

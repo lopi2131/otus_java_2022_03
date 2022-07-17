@@ -3,7 +3,7 @@ package ru.otus.hibernate.crm.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "phones")
+@Table(name = "phone")
 public class Phone implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
