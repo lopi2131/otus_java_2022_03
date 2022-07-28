@@ -1,9 +1,6 @@
 package ru.otus;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import ru.otus.jdbc.core.repository.ClientRepository;
 import ru.otus.jdbc.crm.model.Address;
 import ru.otus.jdbc.crm.model.Client;
 import ru.otus.jdbc.crm.model.Phone;
