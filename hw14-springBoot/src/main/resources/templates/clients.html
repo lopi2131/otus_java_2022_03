@@ -1,0 +1,39 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Работа с клиентами</title>
+</head>
+
+<form id="create-form" th:action="@{/client/save}" th:object="${clientService}" th:method="post" accept-charset="utf-8">
+    <h4>Добавить клиента:</h4>
+
+    <div class="row">
+        <input id="name" name="name" type="text" th:field="*{name}" placeholder="Имя"/>
+        <input id="address" name="address" type="text" th:field="*{address}" placeholder="Адрес"/>
+        <input id="phones" name="phones" type="text" th:field="*{phones}" placeholder="Телефон"/>
+        <input type="submit" value="Добавить клиента">
+    </div>
+</form>
+
+<h4>Список клиентов</h4>
+<table class="clients">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 200px">Адрес</td>
+        <td style="width: 130px">Телефон</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td th:text="${client.address}"></td>
+        <td th:text="${client.phones}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
