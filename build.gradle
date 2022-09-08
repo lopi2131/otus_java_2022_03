@@ -40,6 +40,9 @@ allprojects {
             dependency ("org.flywaydb:flyway-core:${Versions.flyway}")
             dependency ("org.postgresql:postgresql:${Versions.postgresql}")
             dependency ("com.zaxxer:HikariCP:${Versions.hikariCP}")
+            dependency("io.grpc:grpc-netty:${Versions.grpc}")
+            dependency("io.grpc:grpc-protobuf:${Versions.grpc}")
+            dependency("io.grpc:grpc-stub:${Versions.grpc}")
         }
     }
 }
