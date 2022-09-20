@@ -2,6 +2,7 @@ plugins {
     id 'idea'
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
     id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    id 'org.springframework.boot' version '2.7.1' apply false
 }
 
 idea {
@@ -24,6 +25,11 @@ allprojects {
     apply plugin: "io.spring.dependency-management"
     dependencyManagement {
         dependencies {
+            imports {
+                mavenBom "org.springframework.boot:spring-boot-dependencies:2.7.1"
+                mavenBom "org.testcontainers:testcontainers-bom:1.17.1"
+                mavenBom "com.google.protobuf:protobuf-bom:3.21.1"
+            }
             dependency "com.google.guava:guava:${Versions.guava}"
             dependency "org.assertj:assertj-core:${Versions.assertJ}"
             dependency "org.junit.jupiter:junit-jupiter:${Versions.junitJupiter}"
@@ -43,6 +49,10 @@ allprojects {
             dependency("io.grpc:grpc-netty:${Versions.grpc}")
             dependency("io.grpc:grpc-protobuf:${Versions.grpc}")
             dependency("io.grpc:grpc-stub:${Versions.grpc}")
+            dependency("org.webjars:bootstrap:${Versions.bootstrap}")
+            dependency("org.webjars:stomp-websocket:${Versions.stomp}")
+            dependency("org.webjars:sockjs-client:${Versions.sockjs}")
+            dependency("org.springdoc:springdoc-openapi-ui:${Versions.springDocOpenapiUi}")
         }
     }
 }
