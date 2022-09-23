@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Controller;
@@ -34,16 +33,16 @@ public class MessageController {
     }
 
     @MessageMapping("/message.{roomId}")
-    @SendTo({TOPIC_TEMPLATE + "{roomId}", TOPIC_TEMPLATE + ROOM_1408})
-    public Message getMessage(@DestinationVariable String roomId, Message message) {
+    public void getMessage(@DestinationVariable String roomId, Message message) {
         logger.info("got message:{}, roomId:{}", message, roomId);
         if (!roomId.equals(ROOM_1408)) {
             saveMessage(roomId, message)
                     .subscribe(msgId -> logger.info("message send id:{}", msgId));
 
-            return new Message(HtmlUtils.htmlEscape(message.messageStr()));
+            var msg = new Message(HtmlUtils.htmlEscape(message.messageStr()));
+            template.convertAndSend(TOPIC_TEMPLATE + roomId, msg);
+            template.convertAndSend(TOPIC_TEMPLATE + ROOM_1408, msg);
         }
-        return null;
     }
 
 
@@ -58,7 +57,9 @@ public class MessageController {
         var roomId = parseRoomId(simpDestination);
 
         if (Long.parseLong(ROOM_1408) == roomId) {
-            getAllMessages();
+            getAllMessages().
+                    doOnError(ex -> logger.error("getting messages for roomId:{} failed", roomId, ex))
+                    .subscribe(message -> template.convertAndSend(simpDestination, message));
         } else {
             getMessagesByRoomId(roomId)
                     .doOnError(ex -> logger.error("getting messages for roomId:{} failed", roomId, ex))
